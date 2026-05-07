@@ -4,26 +4,41 @@ import '../Domain/User.dart';
 import '../Repositories/UserRepository.dart';
 
 class UserController {
-  UserRepository _repo = UserRepository();
+  final UserRepository _repo;
+
+  UserController(this._repo);
 
   void create() {
-    try {
-      print("Ingrese nombre:");
-      String name = stdin.readLineSync() ?? "";
-      User user = User(name);
-      _repo.create(user);
-      print("Usuario creado correctamente.");
-    } catch (e) {
-      print("Error: $e");
+    String name = _readInput("Ingrese nombre:").trim();
+
+    if (name.isEmpty) {
+      print("El nombre no puede estar vacío.");
+      return;
     }
+
+    final exists = _repo.readOne(name);
+
+    if (exists != null) {
+      print("El usuario ya existe.");
+      return;
+    }
+
+    final user = User(name);
+
+    _repo.create(user);
+
+    print("Usuario creado correctamente.");
   }
 
   void read() {
     final users = _repo.read();
+
     if (users.isEmpty) {
       print("No hay usuarios.");
       return;
     }
+
+    print("\n===== LISTA DE USUARIOS =====");
 
     for (var i = 0; i < users.length; i++) {
       print("${i + 1}. ${users[i]}");
@@ -31,74 +46,109 @@ class UserController {
   }
 
   void readOne() {
-    print("Ingrese nombre a buscar:");
-    String name = stdin.readLineSync() ?? "";
+    String name = _readInput("Ingrese nombre a buscar:").trim();
+
+    if (name.isEmpty) {
+      print("El nombre no puede estar vacío.");
+      return;
+    }
 
     final user = _repo.readOne(name);
 
     if (user == null) {
       print("Usuario no encontrado.");
     } else {
-      print("Encontrado: $user");
+      print("Usuario encontrado: $user");
     }
   }
 
   void update() {
-    try {
-      final users = _repo.read();
+    final users = _showUsers();
 
-      if (users.isEmpty) {
-        print("No hay usuarios para actualizar.");
-        return;
-      }
+    if (users.isEmpty) return;
 
-      for (var i = 0; i < users.length; i++) {
-        print("${i + 1}. ${users[i]}");
-      }
+    int? index = _readIndex(
+      users.length,
+      "Seleccione el número del usuario a actualizar:",
+    );
 
-      print("Seleccione el número del usuario a actualizar:");
-      int? input = int.tryParse(stdin.readLineSync() ?? "");
-      if (input == null) {
-        print("Entrada inválida.");
-        return;
-      }
-      int index = input - 1;
+    if (index == null) return;
 
-      print("Nuevo nombre:");
-      String newName = stdin.readLineSync() ?? "";
+    String newName = _readInput("Nuevo nombre:").trim();
 
-      _repo.updateByIndex(index, newName);
-      print("Usuario actualizado.");
-    } catch (e) {
-      print("Error: $e");
+    if (newName.isEmpty) {
+      print("El nombre no puede estar vacío.");
+      return;
     }
+
+    final exists = _repo.readOne(newName);
+
+    if (exists != null) {
+      print("Ya existe un usuario con ese nombre.");
+      return;
+    }
+
+    _repo.updateByIndex(index, newName);
+
+    print("Usuario actualizado correctamente.");
   }
 
   void delete() {
-    try {
-      final users = _repo.read();
+    final users = _showUsers();
 
-      if (users.isEmpty) {
-        print("No hay usuarios para eliminar.");
-        return;
-      }
+    if (users.isEmpty) return;
 
-      for (var i = 0; i < users.length; i++) {
-        print("${i + 1}. ${users[i]}");
-      }
+    int? index = _readIndex(
+      users.length,
+      "Seleccione el número del usuario a eliminar:",
+    );
 
-      print("Seleccione el número del usuario a eliminar:");
-      int? input = int.tryParse(stdin.readLineSync() ?? "");
-      if (input == null) {
-        print("Entrada inválida.");
-        return;
-      }
-      int index = input - 1;
+    if (index == null) return;
 
-      _repo.deleteByIndex(index);
-      print("Usuario eliminado.");
-    } catch (e) {
-      print("Error: $e");
+    _repo.deleteByIndex(index);
+
+    print("Usuario eliminado correctamente.");
+  }
+
+  String _readInput(String message) {
+    stdout.write("$message ");
+    return stdin.readLineSync() ?? "";
+  }
+
+  List<User> _showUsers() {
+    final users = _repo.read();
+
+    if (users.isEmpty) {
+      print("No hay usuarios.");
+      return [];
     }
+
+    print("\n===== USUARIOS =====");
+
+    for (var i = 0; i < users.length; i++) {
+      print("${i + 1}. ${users[i]}");
+    }
+
+    return users;
+  }
+
+  int? _readIndex(int length, String message) {
+    stdout.write("$message ");
+
+    int? input = int.tryParse(stdin.readLineSync() ?? "");
+
+    if (input == null) {
+      print("Entrada inválida.");
+      return null;
+    }
+
+    int index = input - 1;
+
+    if (index < 0 || index >= length) {
+      print("Índice inválido.");
+      return null;
+    }
+
+    return index;
   }
 }
