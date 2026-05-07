@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'Controllers/UserController.dart';
+import 'Repositories/UserRepository.dart';
 
 void main() {
-    UserController userController = UserController(); 
+  UserRepository userRepository = UserRepository();
+  UserController userController = UserController(userRepository);
   do {
     print("""
 1. Listar
