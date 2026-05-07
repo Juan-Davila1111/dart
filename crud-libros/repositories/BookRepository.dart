@@ -39,8 +39,7 @@ class BookRepository implements IBookRepository {
     }
 
     return _books.values
-        .where((book) =>
-            book.title.toLowerCase().contains(title.toLowerCase()))
+        .where((book) => book.title.toLowerCase().contains(title.toLowerCase()))
         .toList();
   }
 
