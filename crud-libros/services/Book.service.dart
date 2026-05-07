@@ -2,6 +2,7 @@ import '../core/interfaces/services/Book.dart';
 import '../core/models/Book.dart';
 import '../core/utils/AppException.dart';
 import '../repositories/BookRepository.dart';
+import '../core/utils/SafeTryCatch.dart';
 
 class BookService implements IBookService {
   final BookRepository _repository;
@@ -10,7 +11,7 @@ class BookService implements IBookService {
 
   @override
   void createBook(String title, String author, int year) {
-    _execute(() {
+    execute(() {
       final book = _buildValidatedBook(title, author, year);
       _repository.create(book);
     }, 'crear el libro');
@@ -18,7 +19,7 @@ class BookService implements IBookService {
 
   @override
   Book getById(int id) {
-    return _execute(
+    return execute(
       () => _repository.getById(id),
       'obtener el libro',
     );
@@ -26,7 +27,7 @@ class BookService implements IBookService {
 
   @override
   List<Book> getAll() {
-    return _execute(
+    return execute(
       () => _repository.getAll(),
       'listar los libros',
     );
@@ -34,7 +35,7 @@ class BookService implements IBookService {
 
   @override
   List<Book> searchByTitle(String title) {
-    return _execute(() {
+    return execute(() {
       if (title.trim().isEmpty) {
         throw AppException(
           'El término de búsqueda no puede estar vacío',
@@ -47,7 +48,7 @@ class BookService implements IBookService {
 
   @override
   void update(int id, String title, String author, int year) {
-    _execute(() {
+    execute(() {
       final updatedBook = _buildValidatedBook(
         title,
         author,
@@ -60,7 +61,7 @@ class BookService implements IBookService {
 
   @override
   void delete(int id) {
-    _execute(() {
+    execute(() {
       _repository.delete(id);
     }, 'eliminar el libro');
   }
@@ -75,20 +76,5 @@ class BookService implements IBookService {
     Book.validate(book);
 
     return book;
-  }
-
-  T _execute<T>(
-    T Function() action,
-    String operation,
-  ) {
-    try {
-      return action();
-    } on AppException {
-      rethrow;
-    } catch (e) {
-      throw AppException(
-        'Error al $operation: $e',
-      );
-    }
   }
 }
