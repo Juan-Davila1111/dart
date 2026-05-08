@@ -88,7 +88,7 @@ void main() {
           break;
         default:
           print("Opcion invalida");
-          return;
+          continue;
       }
     } catch (e) {
       print("Error: $e");
