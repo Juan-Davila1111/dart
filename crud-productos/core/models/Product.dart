@@ -1,5 +1,4 @@
 class Product {
-
   String name;
   double price;
   int stock;
@@ -28,5 +27,10 @@ class Product {
     validateName(product.name);
     validatePrice(product.price);
     validateStock(product.stock);
+  }
+
+  @override
+  String toString() {
+    return 'Product{name: $name, price: $price, stock: $stock}';
   }
 }
