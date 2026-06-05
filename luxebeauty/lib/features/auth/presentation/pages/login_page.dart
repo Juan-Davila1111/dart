@@ -31,7 +31,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor complete todos los campos')),
+        const SnackBar(content: Text('Por favor complete los campos')),
       );
       return;
     }

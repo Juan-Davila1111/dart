@@ -12,6 +12,8 @@ struct _MyApplication {
   char** dart_entrypoint_arguments;
 };
 
+
+
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 
 // Called when first Flutter frame received.
