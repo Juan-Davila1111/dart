@@ -1,0 +1,8 @@
+[
+  {"id": "1", "name": "Skincare", "icon": "🧴"},
+  {"id": "2", "name": "Makeup", "icon": "💄"},
+  {"id": "3", "name": "Haircare", "icon": "💇‍♀️"},
+  {"id": "4", "name": "Fragrance", "icon": "🌸"},
+  {"id": "5", "name": "Nails", "icon": "💅"},
+  {"id": "6", "name": "Tools", "icon": "🔧"}
+]
