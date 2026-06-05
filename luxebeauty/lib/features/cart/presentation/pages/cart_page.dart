@@ -77,71 +77,89 @@ class CartPage extends ConsumerWidget {
             children: [
               // Free Shipping Progress
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'FREE SHIPPING PROGRESS',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textSecondary,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEAF4FF), // azul suave
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'FREE SHIPPING PROGRESS',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textSecondary,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '\$18.00 left',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primaryPink,
+                          Text(
+                            '\$18.00 left',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primaryPink,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: LinearProgressIndicator(
-                        value: 0.7,
-                        backgroundColor: AppColors.grey.withOpacity(0.2),
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryPink),
-                        minHeight: 6,
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: LinearProgressIndicator(
+                          value: 0.7,
+                          backgroundColor: Colors.white,
+                          valueColor: AlwaysStoppedAnimation(
+                            AppColors.primaryPink,
+                          ),
+                          minHeight: 6,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               // Cart Items List
               Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   itemCount: demoItems.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8),
                   itemBuilder: (context, index) {
                     final item = demoItems[index];
                     Product? product;
                     try {
-                      product = products.firstWhere((p) => p.id == item.productId);
+                      product = products.firstWhere(
+                        (p) => p.id == item.productId,
+                      );
                     } catch (e) {
                       if (products.isNotEmpty) {
                         product = products.first;
                       }
                     }
-                    
+
                     if (product == null) {
                       return const SizedBox.shrink();
                     }
-                    
+
                     // Get product details for display
                     String shade = '';
-                    if (product.name.toLowerCase().contains('velvet')) shade = 'Rose Petal';
-                    else if (product.name.toLowerCase().contains('silk')) shade = 'Light Beige';
-                    else if (product.name.toLowerCase().contains('volum')) shade = 'Midnight Black';
+                    if (product.name.toLowerCase().contains('velvet'))
+                      shade = 'Rose Petal';
+                    else if (product.name.toLowerCase().contains('silk'))
+                      shade = 'Light Beige';
+                    else if (product.name.toLowerCase().contains('volum'))
+                      shade = 'Midnight Black';
 
                     return Container(
                       padding: const EdgeInsets.all(16),
@@ -213,15 +231,23 @@ class CartPage extends ConsumerWidget {
                             child: Row(
                               children: [
                                 IconButton(
-                                  icon: Icon(Icons.remove, color: AppColors.textSecondary, size: 20),
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: AppColors.textSecondary,
+                                    size: 20,
+                                  ),
                                   onPressed: () {
                                     if (item.quantity > 1) {
-                                      ref.read(cartProvider.notifier).updateQuantity(
+                                      ref
+                                          .read(cartProvider.notifier)
+                                          .updateQuantity(
                                             item.productId,
                                             item.quantity - 1,
                                           );
                                     } else {
-                                      ref.read(cartProvider.notifier).removeFromCart(item.productId);
+                                      ref
+                                          .read(cartProvider.notifier)
+                                          .removeFromCart(item.productId);
                                     }
                                   },
                                 ),
@@ -234,9 +260,15 @@ class CartPage extends ConsumerWidget {
                                   ),
                                 ),
                                 IconButton(
-                                  icon: Icon(Icons.add, color: AppColors.textSecondary, size: 20),
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: AppColors.textSecondary,
+                                    size: 20,
+                                  ),
                                   onPressed: () {
-                                    ref.read(cartProvider.notifier).updateQuantity(
+                                    ref
+                                        .read(cartProvider.notifier)
+                                        .updateQuantity(
                                           item.productId,
                                           item.quantity + 1,
                                         );
@@ -253,7 +285,10 @@ class CartPage extends ConsumerWidget {
               ),
               // Order Summary
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.backgroundColor,
                   borderRadius: const BorderRadius.only(
@@ -379,7 +414,9 @@ class CartPage extends ConsumerWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Checkout successful!')),
+                              const SnackBar(
+                                content: Text('Checkout successful!'),
+                              ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -413,7 +450,11 @@ class CartPage extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.lock_outline, color: AppColors.textSecondary, size: 12),
+                            Icon(
+                              Icons.lock_outline,
+                              color: AppColors.textSecondary,
+                              size: 12,
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               'SECURE CHECKOUT POWERED BY STRIPE',
