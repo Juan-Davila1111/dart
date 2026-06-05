@@ -1,0 +1,76 @@
+[
+  {
+    "id": "1",
+    "name": "Velvet Matte Lipstick",
+    "category": "Makeup",
+    "price": 42.00,
+    "description": "Long-lasting velvet finish.",
+    "colors": ["#FF5BA6", "#E91E8F", "#FF80AB", "#C2185B"],
+    "imageUrl": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop",
+    "badge": "BESTSELLER"
+  },
+  {
+    "id": "2",
+    "name": "Silk Finish Foundation",
+    "category": "Makeup",
+    "price": 42.00,
+    "description": "Silky smooth coverage.",
+    "colors": ["#C2185B", "#880E4F", "#F48FB1"],
+    "imageUrl": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "3",
+    "name": "Nude Dreams Palette",
+    "category": "Makeup",
+    "price": 38.00,
+    "description": "12 stunning nude shades.",
+    "colors": ["#FFD54F", "#FFA000", "#FFF8E1"],
+    "imageUrl": "https://images.unsplash.com/photo-1519735777090-ec97162dc266?w=400&h=400&fit=crop",
+    "badge": "BESTSELLER"
+  },
+  {
+    "id": "4",
+    "name": "Rose Glow Blush",
+    "category": "Makeup",
+    "price": 28.00,
+    "description": "Natural rosy glow.",
+    "colors": ["#E91E8F", "#FF80AB", "#FCE4EC"],
+    "imageUrl": "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "5",
+    "name": "Hydrating Primer",
+    "category": "Makeup",
+    "price": 35.00,
+    "description": "Perfect base for makeup.",
+    "colors": ["#E91E63", "#9C27B0", "#2196F3", "#4CAF50", "#FF9800", "#F44336"],
+    "imageUrl": "https://images.unsplash.com/photo-1519368358672-25b03afee3bf?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "6",
+    "name": "Long-wear Eyeliner",
+    "category": "Makeup",
+    "price": 22.00,
+    "description": "Waterproof formula.",
+    "colors": ["#FFFFFF", "#9E9E9E"],
+    "imageUrl": "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "7",
+    "name": "Crystal Lip Gloss",
+    "category": "Makeup",
+    "price": 19.00,
+    "description": "High-shine finish.",
+    "colors": ["#FFC107", "#FFF3E0"],
+    "imageUrl": "https://images.unsplash.com/photo-1552693673-1bf958298935?w=400&h=400&fit=crop"
+  },
+  {
+    "id": "8",
+    "name": "Volume Lash Mascara",
+    "category": "Makeup",
+    "price": 26.00,
+    "description": "Volumizing and lengthening.",
+    "colors": ["#795548", "#FFAB91", "#FFCCBC", "#D7CCC8"],
+    "imageUrl": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&h=400&fit=crop"
+  }
+]
